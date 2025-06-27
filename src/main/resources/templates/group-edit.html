@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <title>Edit group</title>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link href="/css/short-input.css" th:href="@{/css/short-input.css}" rel="stylesheet"/>
+</head>
+
+
+<!-- start main -->
+
+<body class="text-center">
+
+<main>
+    <h1 class="h3 mb-3 font-weight-normal">Group</h1>
+    <!-- Navigation -->
+    <!--/*@thymesVar id="notifications" type=""*/-->
+    <div class="nav" th:replace="fragments/navbar.html :: navigation(notifications=${notifications})"></div>
+
+    <form class="row d-flex justify-content-center" th:action="@{/request-edit-group}" enctype="multipart/form-data"
+          method="post">
+        <div class="col-lg-auto d-flex justify-content-center flex-column">
+            <input class="fields" type="hidden" id="id" name="id" th:value="*{group.id}"
+                   placeholder="id">
+
+            <span class="title">Name</span>
+            <input class="fields" type="text" id="name" name="name" th:value="*{group.name}"
+                   placeholder="Name">
+
+            <span class="title">Description</span>
+            <textarea cols="30" style="height: 150px" class="fields" type="text" id="description" name="description" th:value="*{group.description}"
+                      th:text="*{group.description}"
+                      placeholder="Description"></textarea>
+
+            <br>
+
+            <tr th:each="error :${errors}">
+                <span class="text-danger" th:text="${error.toString()}"></span>
+            </tr>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+        </div>
+    </form>
+</main>
+
+<!-- end main -->
+
+<!-- Footer -->
+<footer class="page-footer font-small  fixed-bottom" style="background-color: #e3f2fd;">
+
+</footer>
+
+
+<!-- Footer -->
+<div th:replace="fragments/footer.html :: footer"></div>
+<!-- Footer -->
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

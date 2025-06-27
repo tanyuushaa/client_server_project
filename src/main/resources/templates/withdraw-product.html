@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <title>Withdraw product</title>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link href="/css/product-actions.css" th:href="@{/css/product-actions.css}" rel="stylesheet"/>
+</head>
+
+
+<body class="text-center">
+
+    <!-- Navigation -->
+    <!--/*@thymesVar id="notifications" type=""*/-->
+    <div class="nav" th:replace="fragments/navbar.html :: navigation(notifications=${notifications})"></div>
+
+    <!-- start main -->
+    <main class="container">
+
+        <form class="row d-flex justify-content-center" th:action="@{/withdraw-product}"
+              enctype="multipart/form-data"
+              method="post">
+            <div class="col-lg-auto d-flex justify-content-center flex-column">
+
+                <h1 class="title" th:text="${product.name}" style="font-size: 30px"></h1>
+                <span class="title" th:text="${product.amount}" style="font-size: 20px"></span>
+                <input type="hidden" th:value="${product.id}" name="productID">
+                <br>
+                <span class="title">Amount to withdraw</span>
+                <input class="fields" type="number" min="0" max="2147483647" id="withdrawnAmount" name="withdrawnAmount" th:value="*{withdrawnAmount}"
+                       placeholder="Amount to withdraw">
+                <br>
+
+                <tr th:each="error :${errors}">
+                    <span class="text-danger" th:text="${error.toString()}"></span>
+                </tr>
+
+                <button class="btn btn-lg btn-success btn-block" type="submit">Accept</button>
+            </div>
+        </form>
+    </main>
+
+    <!-- end main -->
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer.html :: footer"></div>
+    <!-- Footer -->
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/checkInput.js}"></script>
+</body>
+</html>

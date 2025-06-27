@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <title>Products</title>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link href="/css/products.css" th:href="@{/css/products.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- Navigation -->
+<!--/*@thymesVar id="notifications" type=""*/-->
+<div th:replace="fragments/navbar.html :: navigation(notifications=${notifications})"></div>
+
+
+<!-- start main -->
+<main style="padding-top: 60px; padding-bottom: 60px;">
+
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center">
+            <p class="text-center font-weight-bold d-inline" style="font-size: 30px; margin: 0px; margin-right: 20px">
+                PRODUCTS</p>
+
+            <form class="d-inline" th:action="@{/add-product}" method="get">
+                <button type="submit" class="btn btn-group-sm btn-success btn-secondary font-weight-bold">&#65291;
+                </button>
+            </form>
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+            <form id="findForm" class="d-inline" th:action="@{/products-find}" method="get">
+                <span class="value-title" th:value="${value}" th:text="'Value: ₴' + ${value}"></span>
+                <span style="font-size: 20px; margin-left: 20px">Group: </span>
+                <select id="groupId" name="groupId" th:value="*{groupId}" onchange="this.form.submit()"
+                        style="font-size: 20px">
+                    <option selected th:value=0 th:text="All">
+                    </option>
+                    <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"
+                            th:selected="${group.id==groupId}">
+                    </option>
+                </select>
+                <span style="font-size: 20px; margin-left: 20px">ID: </span>
+                <input class="fields" type="number" min="0" max="2147483647" step="1" id="findProductId"
+                       name="findProductId" th:value="*{findProductId}"
+                       placeholder="Product ID">
+                <span style="font-size: 20px; margin-left: 20px">Name: </span>
+                <input class="fields" type="text" id="findProductName" name="findProductName"
+                       th:value="*{findProductName}"
+                       placeholder="Product name">
+                <button type="submit" class="btn btn-secondary" style="margin-left: 20px">Search</button>
+            </form>
+        </div>
+        <br>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Group</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="product : ${products}">
+                <td class="align-middle"><span class="align-middle" th:text="${product.id}"></span></td>
+                <td class="align-middle"><span class="align-middle" th:text="${product.name}"></span></td>
+                <td class="align-middle"><span class="align-middle" th:text="${product.getGroup().name}"></span></td>
+                <td class="align-middle"><span class="align-middle" th:text="${product.producer}"></span></td>
+                <td class="align-middle"><span class="align-middle" th:text="'₴'+${product.price}"></span></td>
+                <td class="align-middle"><span class="align-middle" th:text="${product.amount}"></span></td>
+                <form th:action="@{/arrival-product}" method="get">
+                    <td><input type="hidden" th:value="${product.id}" name="productID">
+                        <button type="submit" class="font-weight-bold btn btn-danger btn-block"
+                                style="padding: 0; background-color: forestgreen; border:none">
+                            Accept
+                        </button>
+                    </td>
+                </form>
+                <form th:action="@{/withdraw-product}" method="get">
+                    <td><input type="hidden" th:value="${product.id}" name="productID">
+                        <button type="submit" class="font-weight-bold btn btn-danger btn-block"
+                                style="padding: 0; background-color: darkorange; border:none">
+                            Withdraw
+                        </button>
+                    </td>
+                </form>
+                <form th:action="@{/request-delete-product}" method="post">
+                    <td><input type="hidden" th:value="${product.id}" name="productID">
+                        <button type="submit" class="font-weight-bold btn btn-danger btn-block" style="padding: 0px;"
+                                onclick="return confirm('Are you sure you want to delete this product?')">
+                            &#215;
+                        </button>
+                    </td>
+                </form>
+                <form th:action="@{/edit-product}" method="get">
+                    <td><input type="hidden" th:value="${product.id}" name="productID">
+                        <button type="submit" class="btn btn-primary btn-block" style="padding: 0px;">
+                            &#x2699;
+                        </button>
+                    </td>
+                </form>
+
+            </tbody>
+        </table>
+
+    </div>
+</main>
+<!-- end main -->
+
+<!-- Footer -->
+<div th:replace="fragments/footer.html :: footer"></div>
+<!-- Footer -->
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkInput.js}"></script>
+
+</body>
+</html>

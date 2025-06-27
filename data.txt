@@ -1,0 +1,19 @@
+INSERT INTO groups (id, name, description)
+VALUES (1, 'Bakery', 'Хліб, булочки та випічка'),
+       (2, 'Vegetables', 'Свіжі овочі'),
+       (3, 'Meat', 'Мʼясні вироби');
+
+INSERT INTO products (id, name, group_id, producer, price, amount, description)
+VALUES (1, 'Wheat Bread', 1, 'KyivBakery', 25.50, 200, 'Свіжоспечений пшеничний хліб'),
+       (2, 'Tomatoes', 2, 'AgroFresh', 14.30, 300, 'Соковиті червоні томати'),
+       (3, 'Chicken Breast', 3, 'MHP', 89.00, 150, 'Філе куряче охолоджене'),
+       (4, 'Pork Ribs', 3, 'MeatHouse', 120.40, 90, 'Ребра свинячі мариновані');
+
+INSERT INTO users (id, username, email, PASSWORD)
+VALUES (1, 'Tetiana', 'rudenko2005w@gmail.com', '$2a$10$vx65JDXg5cH.40IwIh01eOmShF6xTuZ8ujE48kzWBdnXaRoccl69m');
+
+INSERT INTO user_roles (id, name)
+VALUES (1, 'ROLE_ADMIN');
+
+INSERT INTO users_roles (users_id, roles_id)
+VALUES (1, 1);

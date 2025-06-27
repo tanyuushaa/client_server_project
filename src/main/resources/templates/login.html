@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link href="/css/short-input.css" th:href="@{/css/short-input.css}" rel="stylesheet"/>
+</head>
+
+<body class="text-center">
+
+<div id="container">
+
+    <form class="fields" th:action="@{/login-processing}" th:object="${user}" method="post">
+
+        <h1 class="h3 mb-3 font-weight-normal" id="login-banner">Log into your account</h1>
+
+        <input type="text" class="from-control" id="username" name="username" th:value="*{username}"
+               placeholder=" Username">
+
+        <input type="password" class="from-control" style="margin-bottom: 15px" name="password"
+               th:value="*{password}"
+               placeholder=" Password">
+
+        <tr th:each="error :${errors}">
+            <span class="text-danger" th:text="${error.toString()}"></span>
+            <br>
+        </tr>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+
+        <a th:href="@{/registration}">Don't have an account? Sign up</a>
+
+    </form>
+    <br>
+</div>
+</body>
+</html>

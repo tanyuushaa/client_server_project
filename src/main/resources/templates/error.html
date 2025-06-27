@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Error</title>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link href="/css/error.css" th:href="@{/css/error.css}" rel="stylesheet"/>
+</head>
+<body>
+<div>
+
+    <form class="info" th:action="@{/products}" method="get">
+        <h1 class="h3 mb-3 font-weight-normal" id="error-banner">Something went wrong!</h1>
+        <span class="text-info" th:text="${message}"></span>
+        <button type="submit" class="btn btn-primary">Return to the main page</button>
+    </form>
+</div>
+</body>
+</html>

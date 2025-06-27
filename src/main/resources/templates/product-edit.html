@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <title>Edit product</title>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link href="/css/product-actions.css" th:href="@{/css/product-actions.css}" rel="stylesheet"/>
+
+</head>
+
+<!-- start main -->
+<body class="text-center" style="margin-top: 15%">
+<main>
+    <!-- Navigation -->
+    <!--/*@thymesVar id="notifications" type=""*/-->
+    <div class="nav" th:replace="fragments/navbar.html :: navigation(notifications=${notifications})"></div>
+
+    <h1 class="h3 mb-3 font-weight-normal" >Product</h1>
+
+    <form class="row d-flex justify-content-center" th:action="@{/request-edit-product}" enctype="multipart/form-data"
+          method="post">
+        <div class="col-lg-auto d-flex justify-content-center flex-column">
+            <input class="fields" type="hidden" id="id" name="id" th:value="*{product.id}"
+                   placeholder="id">
+
+            <span class="title">Name</span>
+            <input class="fields" type="text" id="name" name="name" th:value="*{product.name}"
+                   placeholder="Name">
+
+            <span class="title">Description</span>
+            <textarea cols="30" style="height: 150px" class="fields" type="text" id="description" name="description" th:value="*{product.description}"
+                      th:text="*{product.description}"
+                      placeholder="Description"></textarea>
+
+            <span class="title">Manufacturer</span>
+            <input class="fields" type="text" id="producer" name="producer" th:value="*{product.producer}"
+                   placeholder="Manufacturer">
+
+            <span class="title">Group</span>
+            <select class="limited-drop-down" id="groupId" name="groupId" th:value="*{groupId}"
+                    style="width: 450px; height: 40px">
+                <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"
+                        th:selected="${group.id==product.group.id}">
+                </option>
+            </select>
+
+            <span class="title">Price</span>
+            <input class="fields" type="number"min="0" max="2147483647" step="0.01" id="price" name="price" th:value="*{product.price}"
+                   placeholder="Price">
+
+            <span class="title">Amount</span>
+            <input class="fields" type="number" min="0" max="2147483647" step="0.01" id="amount" name="amount" th:value="*{product.amount}"
+                   placeholder="Amount">
+            <br>
+
+            <tr th:each="error :${errors}">
+                <span class="text-danger" th:text="${error.toString()}"></span>
+            </tr>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+        </div>
+    </form>
+</main>
+
+<!-- end main -->
+
+<!-- Footer -->
+<div th:replace="fragments/footer.html :: footer"></div>
+<!-- Footer -->
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkInput.js}"></script>
+
+</body>
+</html>

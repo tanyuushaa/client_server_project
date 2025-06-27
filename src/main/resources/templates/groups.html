@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <title>Groups</title>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+
+</head>
+<body>
+
+<!-- Navigation -->
+<!--/*@thymesVar id="notifications" type=""*/-->
+<div th:replace="fragments/navbar.html :: navigation(notifications=${notifications})"></div>
+
+
+<!-- start main -->
+<main style="padding-top: 60px; padding-bottom: 60px;">
+
+    <div class="container">
+        <p class="text-center font-weight-bold" style="font-size: 30px">GROUPS</p>
+        <form th:action="@{/add-group}" method="get">
+            <button type="submit" class="btn btn-lg btn-success btn-block font-weight-bold" style="width: 15%; margin: auto;">&#65291;</button>
+        </form>
+        <br>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="group : ${groups}">
+                <td class="align-middle"><span class="align-middle" th:text="${group.id}"></span></td>
+                <td class="align-middle"><span class="align-middle" th:text="${group.name}"></span></td>
+                <td class="align-middle"><span class="align-middle" th:text="${group.description}"></span></td>
+                <form th:action="@{/request-delete-group}" method="post">
+                    <td><input type="hidden" th:value="${group.id}" name="groupID">
+                        <button type="submit" class="font-weight-bold btn btn-danger btn-block" style="padding: 0px"
+                                onclick="return confirm('Are you sure you want to delete this group?')">
+                            &#215;
+                        </button>
+                    </td>
+                </form>
+                <form th:action="@{/edit-group}" method="get">
+                    <td><input type="hidden" th:value="${group.id}" name="groupID">
+                        <button type="submit" class="btn btn-primary btn-block" style="padding: 0px">
+                            &#x2699;
+                        </button>
+                    </td>
+                </form>
+
+            </tbody>
+        </table>
+
+    </div>
+</main>
+<!-- end main -->
+
+<!-- Footer -->
+<div th:replace="fragments/footer.html :: footer"></div>
+<!-- Footer -->
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
